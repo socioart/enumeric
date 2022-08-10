@@ -1,8 +1,6 @@
 # Enumeric
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/enumeric`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Enumeric makes you can define "enum" like in other languages on Ruby.
 
 ## Installation
 
@@ -22,7 +20,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+module Foo
+  # The following code defines constants: Colors, Colors::RED, Colors::GREEN, Colors::BLUE.
+  Colors = Enumeric.define(
+    RED: 0,
+    GREEN: 1,
+    BLUE: 2,
+  )
+
+  def hex(color)
+    # You can use it in pattern matching
+    case color
+    in Colors::RED
+      "#ff0000"
+    in Colors::GREEN
+      "#00ff00"
+    in Colors::BLUE
+      "#0000ff"
+    end
+  end
+end
+
+Foo::Colors.names #=> [:RED, :GREEN, :BLUE]
+Foo::Colors.values #=> [0, 1, 2]
+```
 
 ## Development
 
