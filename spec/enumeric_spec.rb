@@ -105,7 +105,35 @@ RSpec.describe Enumeric do
       )
 
       expect(enum.values).to eq [1, 2, obj]
-      expect(enum.names).to be_frozen
+      expect(enum.values).to be_frozen
+    end
+  end
+
+  describe "each_value" do
+    it "process each value" do
+      obj = Object.new
+      enum = Enumeric.define(
+        ONE: 1,
+        TWO: 2,
+        OBJECT: obj,
+      )
+
+      a = []
+      enum.each_value {|v| a << v}
+      expect(enum.values).to eq [1, 2, obj]
+    end
+
+    it "returns enumerator" do
+      obj = Object.new
+      enum = Enumeric.define(
+        ONE: 1,
+        TWO: 2,
+        OBJECT: obj,
+      )
+
+      a = []
+      enum.each_value.each {|v| a << v}
+      expect(enum.values).to eq [1, 2, obj]
     end
   end
 end

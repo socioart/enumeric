@@ -26,6 +26,12 @@ module Enumeric
       @values ||= name_and_values.values.freeze
     end
 
+    def each_value(&block)
+      return enum_for(:each_value) unless block_given?
+
+      values.each(&block)
+    end
+
     private
     def names_by_value
       @names_by_value ||= name_and_values.invert.freeze
